@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Inserts an invisible, non-breaking word joiner (U+2060) around every
+ * Inserts an invisible, non-breaking word joiner (U+2060) after every
  * space/slash/dash in a date range like "09 / 2023 - 09 / 2025".
  *
  * WebKit's phone-number data detector (Safari, and third-party iOS
@@ -18,5 +18,5 @@ export function cn(...inputs: ClassValue[]) {
  * visual or audible effect.
  */
 export function escapeDateDetection(text: string): string {
-  return text.replace(/[\s/-]/g, (separator) => `${separator}⁠`);
+  return text.replace(/[\s/-]/g, (separator) => `${separator}\u2060`);
 }
