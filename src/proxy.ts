@@ -50,7 +50,10 @@ export function proxy(request: NextRequest) {
 
   const url = request.nextUrl.clone();
   url.pathname = `/${preferred}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  // 308 (permanent) instead of the default 307: this redirect is a
+  // permanent architectural decision, not a temporary A/B test, so it
+  // should consolidate SEO signals onto the locale URL.
+  return NextResponse.redirect(url, 308);
 }
 
 export const config = {

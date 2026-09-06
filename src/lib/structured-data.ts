@@ -64,7 +64,6 @@ export function generateResumeStructuredData(
     "@type": "ProfilePage",
     inLanguage: locale,
     mainEntity: person,
-    about: person,
     name: `${resume.name} - ${resume.about}`,
     description: resume.summary,
     url,

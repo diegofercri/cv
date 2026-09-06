@@ -57,10 +57,6 @@ export default async function ResumePage({
         className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-11 md:p-16"
         id="main-content"
       >
-        <div className="sr-only">
-          <h1>{`${resume.name} - ${dict.resume}`}</h1>
-        </div>
-
         <section
           className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4 dark:bg-background"
           aria-label={dict.resumeContent}

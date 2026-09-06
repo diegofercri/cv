@@ -27,14 +27,16 @@ function EducationPeriod({ start, end, dict }: EducationPeriodProps) {
 interface EducationItemProps {
   education: EducationEntry;
   dict: Dictionary;
+  index: number;
 }
 
 /**
  * Individual education card component
  */
-function EducationItem({ education, dict }: EducationItemProps) {
+function EducationItem({ education, dict, index }: EducationItemProps) {
   const { school, start, end, degree } = education;
-  const schoolId = `education-${school.toLowerCase().replace(/\s+/g, "-")}`;
+  // Index keeps the id unique when two entries share the same school.
+  const schoolId = `education-${index}-${school.toLowerCase().replace(/\s+/g, "-")}`;
 
   return (
     <Card className="border-none">
@@ -78,9 +80,9 @@ export function Education({ education, dict }: EducationListProps) {
         role="feed"
         aria-labelledby="education-section"
       >
-        {education.map((item) => (
+        {education.map((item, index) => (
           <article key={`${item.school}-${item.degree}`}>
-            <EducationItem education={item} dict={dict} />
+            <EducationItem education={item} dict={dict} index={index} />
           </article>
         ))}
       </div>

@@ -1,10 +1,12 @@
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 import {
   DEFAULT_LOCALE,
   getResumeData,
   isLocale,
+  LOCALES,
   resolveAvatarUrl,
-  SITE_URL,
 } from "@/lib/i18n";
 
 export const alt = "Resume";
@@ -15,16 +17,46 @@ export const size = {
 
 export const contentType = "image/png";
 
+export function generateStaticParams() {
+  return LOCALES.map((lang) => ({ lang }));
+}
+
+/** Image formats Satori (the ImageResponse renderer) can actually paint. */
+const RENDERABLE_MIME_BY_EXTENSION: Record<string, string> = {
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  gif: "image/gif",
+};
+
 /**
- * Satori only renders png/jpeg/gif, and throws when the image is missing,
- * so unusable avatars fall back to the initials.
+ * Reads a local /public avatar straight from disk and inlines it as a data
+ * URI, so rendering this image never makes a network round-trip back to
+ * the site itself. Returns null when the file is missing or in a format
+ * Satori can't render (e.g. webp), so the caller falls back to the
+ * initials.
  */
-async function isRenderableAvatar(src: string): Promise<boolean> {
+function loadLocalAvatar(avatarPath: string): string | null {
+  const extension = avatarPath.split(".").pop()?.toLowerCase() ?? "";
+  const mime = RENDERABLE_MIME_BY_EXTENSION[extension];
+  if (!mime) return null;
+
+  const filePath = path.join(process.cwd(), "public", avatarPath);
+  if (!existsSync(filePath)) return null;
+
+  return `data:${mime};base64,${readFileSync(filePath).toString("base64")}`;
+}
+
+/**
+ * Remote avatars can't be read from disk, so this is the only case that
+ * still needs a live request to confirm Satori can render it.
+ */
+async function isRenderableRemoteAvatar(src: string): Promise<boolean> {
   try {
     const response = await fetch(src);
     if (!response.ok) return false;
     const type = response.headers.get("content-type") ?? "";
-    return ["image/png", "image/jpeg", "image/gif"].includes(type);
+    return Object.values(RENDERABLE_MIME_BY_EXTENSION).includes(type);
   } catch {
     return false;
   }
@@ -40,8 +72,12 @@ export default async function Image({
   const resume = getResumeData(locale);
 
   const avatar = resolveAvatarUrl(resume.avatarUrl);
-  const avatarSrc = avatar.startsWith("http") ? avatar : `${SITE_URL}${avatar}`;
-  const showAvatar = await isRenderableAvatar(avatarSrc);
+  const isRemote = avatar.startsWith("http");
+  const localAvatar = isRemote ? null : loadLocalAvatar(avatar);
+  const showAvatar = isRemote
+    ? await isRenderableRemoteAvatar(avatar)
+    : localAvatar !== null;
+  const avatarSrc = localAvatar ?? avatar;
 
   return new ImageResponse(
     <div

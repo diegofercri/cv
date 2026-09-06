@@ -8,6 +8,7 @@ import "../globals.css";
 import type React from "react";
 import { ErrorBoundary } from "@/components/error-boundary";
 import {
+  DEFAULT_LOCALE,
   getDictionary,
   getResumeData,
   isLocale,
@@ -39,7 +40,7 @@ export async function generateMetadata({
       default: title,
       template: `%s | ${resume.name}`,
     },
-    description: resume.about,
+    description: resume.summary,
     keywords: [dict.resume, "cv", "portfolio", resume.name, ...resume.skills],
     authors: [{ name: resume.name }],
     creator: resume.name,
@@ -55,7 +56,7 @@ export async function generateMetadata({
       url: `${SITE_URL}/${lang}`,
       siteName: `${resume.name} - ${dict.resume}`,
       title,
-      description: resume.about,
+      description: resume.summary,
     },
     robots: {
       index: true,
@@ -71,13 +72,16 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title,
-      description: resume.about,
+      description: resume.summary,
     },
     alternates: {
       canonical: `${SITE_URL}/${lang}`,
-      languages: Object.fromEntries(
-        LOCALES.map((locale) => [locale, `${SITE_URL}/${locale}`])
-      ),
+      languages: {
+        ...Object.fromEntries(
+          LOCALES.map((locale) => [locale, `${SITE_URL}/${locale}`])
+        ),
+        "x-default": `${SITE_URL}/${DEFAULT_LOCALE}`,
+      },
     },
   };
 }
