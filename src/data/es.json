@@ -1,0 +1,88 @@
+{
+  "name": "Diego Fernández Criado",
+  "initials": "DF",
+  "location": "Toledo, España, CET",
+  "locationLink": "https://www.google.com/maps/place/Toledo+Spain",
+  "about": "Desarrollador Kotlin Multiplataforma",
+  "summary": "Me apasiona el diseño UI y UX. Soy un entusiasta de la fotografía, el cine y la música, y soy un friki de los videojuegos. Mi pasión por la tecnología, la innovación y la perfección me han llevado hasta aquí.",
+  "phrase": "Las mejoras del 1% son las que marcan la diferencia",
+  "avatarUrl": "img/diegoPicture.webp",
+  "personalWebsiteUrl": "https://diegofercri.dev",
+  "contact": {
+    "email": "contact@diegofercri.dev",
+    "tel": "",
+    "social": [
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/diegofercri",
+        "icon": "linkedin"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/diegofercri",
+        "icon": "github"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/diegofercri",
+        "icon": "instagram"
+      }
+    ]
+  },
+  "education": [
+    {
+      "school": "IES Azarquiel",
+      "degree": "Desarrollo de Aplicaciones Multiplataforma",
+      "start": "09 / 2023",
+      "end": "09 / 2025"
+    },
+    {
+      "school": "IES Azarquiel",
+      "degree": "Sistemas Microinformáticos y Redes",
+      "start": "09 / 2021",
+      "end": "06 / 2023"
+    }
+  ],
+  "work": [
+    {
+      "company": "Telefónica",
+      "link": "https://www.linkedin.com/company/telefonica",
+      "badges": [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "Gitlab",
+        "Scrum"
+      ],
+      "title": "Desarrollador Kotlin Multiplataforma",
+      "start": "09 / 2025",
+      "end": null,
+      "description": "Desarrollo de aplicaciones de escritorio para Windows y Linux utilizando Kotlin Multiplatform y JVM, participando en distintas capas del producto y asumiendo responsabilidades tanto de implementación como de diseño técnico.",
+      "highlights": [
+        "Desarrollo UI/UX, lógica de negocio y componentes reutilizables con Compose Multiplatform",
+        "Implementación de Unix sockets para comunicación entre distintas instancias de la app",
+        "Participación en decisiones de arquitectura, revisiones de código y PRs",
+        "Participación transversal, colaborando con diseño, QA, backend y producto"
+      ]
+    }
+  ],
+  "skills": [
+    "Git",
+    "GitHub",
+    "GitLab",
+    "Cloudflare",
+    "Proxmox",
+    "Docker Compose",
+    "Supabase",
+    "SQL",
+    "Java",
+    "Kotlin",
+    "Jetpack Compose",
+    "Figma",
+    "Design Systems",
+    "Scrum",
+    "OpenCode",
+    "AI/LLMs",
+    "BitWarden"
+  ],
+  "projects": []
+}

@@ -1,28 +1,29 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
-import type { RESUME_DATA } from "@/data/resume-data";
-import { cn } from "@/lib/utils";
+import type { Dictionary } from "@/lib/i18n";
+import type { WorkItem } from "@/lib/types";
+import { cn, escapeDateDetection } from "@/lib/utils";
 
-type WorkExperience = (typeof RESUME_DATA)["work"][number];
 type WorkBadges = readonly string[];
 
 interface BadgeListProps {
   className?: string;
   badges: WorkBadges;
+  dict: Dictionary;
 }
 
 /**
  * Renders a list of badges for work experience
  * Handles both mobile and desktop layouts through className prop
  */
-function BadgeList({ className, badges }: BadgeListProps) {
+function BadgeList({ className, badges, dict }: BadgeListProps) {
   if (badges.length === 0) return null;
 
   return (
     <ul
       className={cn("inline-flex list-none gap-x-1 p-0", className)}
-      aria-label="Technologies used"
+      aria-label={dict.technologiesUsed}
     >
       {badges.map((badge) => (
         <li key={badge}>
@@ -39,40 +40,45 @@ function BadgeList({ className, badges }: BadgeListProps) {
 }
 
 interface WorkPeriodProps {
-  start: WorkExperience["start"];
-  end?: WorkExperience["end"];
+  start: WorkItem["start"];
+  end?: WorkItem["end"];
+  dict: Dictionary;
 }
 
 /**
  * Displays the work period in a consistent format
  */
-function WorkPeriod({ start, end }: WorkPeriodProps) {
+function WorkPeriod({ start, end, dict }: WorkPeriodProps) {
   return (
     <div
       className="text-sm tabular-nums text-gray-500"
-      title={`Employment period: ${start} to ${end ?? "Present"}`}
+      title={`${dict.employmentPeriod}: ${start} - ${end ?? dict.present}`}
     >
-      {start} - {end ?? "Present"}
+      {escapeDateDetection(`${start} - ${end ?? dict.present}`)}
     </div>
   );
 }
 
 interface CompanyLinkProps {
-  company: WorkExperience["company"];
-  link: WorkExperience["link"];
+  company: WorkItem["company"];
+  link: WorkItem["link"];
 }
 
 /**
  * Renders company name with optional link
  */
 function CompanyLink({ company, link }: CompanyLinkProps) {
+  if (!link) {
+    return <span>{company}</span>;
+  }
+
   return (
     <a
       className="hover:underline"
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${company} company website`}
+      aria-label={company}
     >
       {company}
     </a>
@@ -80,52 +86,51 @@ function CompanyLink({ company, link }: CompanyLinkProps) {
 }
 
 interface WorkExperienceItemProps {
-  work: WorkExperience;
+  work: WorkItem;
+  dict: Dictionary;
 }
 
 /**
  * Individual work experience card component
- * Handles responsive layout for badges (mobile/desktop)
+ * Badges are rendered on their own line below the company name
  */
-function WorkExperienceItem({ work }: WorkExperienceItemProps) {
+function WorkExperienceItem({ work, dict }: WorkExperienceItemProps) {
   const { company, link, badges, title, start, end, description, highlights } =
     work;
 
   return (
     <Card className="border-none py-1 print:py-0">
-      <CardHeader className="print:space-y-1">
-        <div className="flex items-center justify-between gap-x-2 text-base">
-          <h3 className="inline-flex items-center justify-center gap-x-1 font-semibold leading-none print:text-sm">
-            <CompanyLink company={company} link={link} />
-            <BadgeList
-              className="hidden gap-x-1 sm:inline-flex"
-              badges={badges}
-            />
-          </h3>
-          <WorkPeriod start={start} end={end} />
-        </div>
+      <CardHeader className="space-y-0">
+        <div>
+          <div className="flex items-center justify-between gap-x-2 text-base">
+            <h3 className="font-semibold leading-none print:text-sm">
+              <CompanyLink company={company} link={link} />
+            </h3>
+            <WorkPeriod start={start} end={end} dict={dict} />
+          </div>
 
-        <h4 className="font-mono text-sm font-semibold leading-none print:text-[12px]">
-          {title}
-        </h4>
+          <BadgeList
+            className="mt-1 flex-wrap gap-1 print:mt-0.5"
+            badges={badges}
+            dict={dict}
+          />
+
+          <h4 className="mt-4 font-mono text-sm font-semibold leading-none print:mt-2 print:text-[12px]">
+            {title}
+          </h4>
+        </div>
       </CardHeader>
 
       <CardContent>
-        <div className="mt-2 text-xs text-foreground/80 print:mt-1 print:text-[10px] text-pretty">
+        <div className="mt-3 text-xs text-foreground/80 print:mt-1.5 print:text-[10px] text-pretty">
           {description}
           {highlights && highlights.length > 0 && (
-            <ul className="list-inside list-disc">
+            <ul className="mt-1.5 list-inside list-disc print:mt-1">
               {highlights.map((highlight) => (
                 <li key={highlight}>{highlight}</li>
               ))}
             </ul>
           )}
-        </div>
-        <div className="mt-2">
-          <BadgeList
-            className="-mx-2 flex-wrap gap-1 sm:hidden"
-            badges={badges}
-          />
         </div>
       </CardContent>
     </Card>
@@ -133,18 +138,21 @@ function WorkExperienceItem({ work }: WorkExperienceItemProps) {
 }
 
 interface WorkExperienceProps {
-  work: (typeof RESUME_DATA)["work"];
+  work: readonly WorkItem[];
+  dict: Dictionary;
 }
 
 /**
  * Main work experience section component
  * Renders a list of work experiences in chronological order
  */
-export function WorkExperience({ work }: WorkExperienceProps) {
+export function WorkExperience({ work, dict }: WorkExperienceProps) {
+  if (work.length === 0) return null;
+
   return (
     <Section>
       <h2 className="text-xl font-bold" id="work-experience">
-        Work Experience
+        {dict.workExperience}
       </h2>
       <div
         className="space-y-4 print:space-y-0"
@@ -153,7 +161,7 @@ export function WorkExperience({ work }: WorkExperienceProps) {
       >
         {work.map((item) => (
           <article key={`${item.company}-${item.start}`}>
-            <WorkExperienceItem work={item} />
+            <WorkExperienceItem work={item} dict={dict} />
           </article>
         ))}
       </div>

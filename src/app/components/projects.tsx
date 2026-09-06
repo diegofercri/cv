@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
-import type { RESUME_DATA } from "@/data/resume-data";
+import type { Dictionary } from "@/lib/i18n";
+import type { ProjectItem } from "@/lib/types";
 
 type ProjectTags = readonly string[];
 
@@ -31,14 +32,10 @@ function ProjectLink({ title, link }: ProjectLinkProps) {
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1 hover:underline"
-        aria-label={`${title} project (opens in new tab)`}
+        aria-label={title}
       >
         {title}
-        <span
-          className="size-1 rounded-full bg-green-500"
-          title="Active project indicator"
-          aria-hidden="true"
-        />
+        <span className="size-1 rounded-full bg-green-500" aria-hidden="true" />
       </a>
       <div
         className="hidden font-mono text-xs underline print:visible"
@@ -52,19 +49,17 @@ function ProjectLink({ title, link }: ProjectLinkProps) {
 
 interface ProjectTagsProps {
   tags: ProjectTags;
+  label: string;
 }
 
 /**
  * Renders a list of technology tags used in the project
  */
-function ProjectTags({ tags }: ProjectTagsProps) {
+function ProjectTags({ tags, label }: ProjectTagsProps) {
   if (tags.length === 0) return null;
 
   return (
-    <ul
-      className="mt-2 flex list-none flex-wrap gap-1 p-0"
-      aria-label="Technologies used"
-    >
+    <ul className="mt-2 flex list-none flex-wrap gap-1 p-0" aria-label={label}>
       {tags.map((tag) => (
         <li key={tag}>
           <Badge
@@ -84,12 +79,19 @@ interface ProjectCardProps {
   description: string;
   tags: ProjectTags;
   link?: string;
+  dict: Dictionary;
 }
 
 /**
  * Card component displaying project information
  */
-function ProjectCard({ title, description, tags, link }: ProjectCardProps) {
+function ProjectCard({
+  title,
+  description,
+  tags,
+  link,
+  dict,
+}: ProjectCardProps) {
   return (
     <Card className="flex h-full flex-col overflow-hidden border p-3">
       <CardHeader>
@@ -97,33 +99,33 @@ function ProjectCard({ title, description, tags, link }: ProjectCardProps) {
           <CardTitle className="text-base">
             <ProjectLink title={title} link={link} />
           </CardTitle>
-          <CardDescription
-            className="text-pretty font-mono text-xs print:text-[10px]"
-            aria-label="Project description"
-          >
+          <CardDescription className="text-pretty font-mono text-xs print:text-[10px]">
             {description}
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent className="mt-auto flex">
-        <ProjectTags tags={tags} />
+        <ProjectTags tags={tags} label={dict.technologiesUsed} />
       </CardContent>
     </Card>
   );
 }
 
 interface ProjectsProps {
-  projects: (typeof RESUME_DATA)["projects"];
+  projects: readonly ProjectItem[];
+  dict: Dictionary;
 }
 
 /**
  * Section component displaying all side projects
  */
-export function Projects({ projects }: ProjectsProps) {
+export function Projects({ projects, dict }: ProjectsProps) {
+  if (projects.length === 0) return null;
+
   return (
     <Section className="scroll-mb-16 print:space-y-4">
       <h2 className="text-xl font-bold" id="side-projects">
-        Side projects
+        {dict.projects}
       </h2>
       <div
         className="-mx-3 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 print:gap-2"
@@ -140,6 +142,7 @@ export function Projects({ projects }: ProjectsProps) {
               description={project.description}
               tags={project.techStack}
               link={project.link?.href}
+              dict={dict}
             />
           </article>
         ))}

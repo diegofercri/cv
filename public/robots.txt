@@ -1,13 +1,12 @@
-# Robots.txt for https://cv.jarocki.me
+# Robots.txt for https://diegofercri.dev
 
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /_next/
-Disallow: /graphql
 
 # Sitemap location
-Sitemap: https://cv.jarocki.me/sitemap.xml
+Sitemap: https://diegofercri.dev/sitemap.xml
 
 # Crawl-delay for responsible crawling
 Crawl-delay: 1

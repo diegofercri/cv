@@ -1,0 +1,88 @@
+{
+  "name": "Diego Fernández Criado",
+  "initials": "DF",
+  "location": "Toledo, Spain, CET",
+  "locationLink": "https://www.google.com/maps/place/Toledo+Spain",
+  "about": "Kotlin Multiplatform Developer",
+  "summary": "I'm passionate about UI and UX design. I'm enthusiastic about photography, cinema, and music, and I'm a gaming geek. My passion for technology, innovation, and perfection have brought me here.",
+  "phrase": "The 1% improvements are what make the difference",
+  "avatarUrl": "img/diegoPicture.webp",
+  "personalWebsiteUrl": "https://diegofercri.dev",
+  "contact": {
+    "email": "contact@diegofercri.dev",
+    "tel": "",
+    "social": [
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/diegofercri",
+        "icon": "linkedin"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/diegofercri",
+        "icon": "github"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/diegofercri",
+        "icon": "instagram"
+      }
+    ]
+  },
+  "education": [
+    {
+      "school": "IES Azarquiel",
+      "degree": "Multiplatform App Development",
+      "start": "09 / 2023",
+      "end": "09 / 2025"
+    },
+    {
+      "school": "IES Azarquiel",
+      "degree": "Microcomputer Systems and Networks",
+      "start": "09 / 2021",
+      "end": "06 / 2023"
+    }
+  ],
+  "work": [
+    {
+      "company": "Telefónica",
+      "link": "https://www.linkedin.com/company/telefonica",
+      "badges": [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "Gitlab",
+        "Scrum"
+      ],
+      "title": "Kotlin Multiplatform Developer",
+      "start": "09 / 2025",
+      "end": null,
+      "description": "Development of desktop applications for Windows and Linux using Kotlin Multiplatform and the JVM, working across different layers of the product and taking on responsibilities in both implementation and technical design.",
+      "highlights": [
+        "UI/UX development, business logic, and reusable components with Compose Multiplatform",
+        "Implementation of Unix sockets for communication between different instances of the app",
+        "Participation in architecture decisions, code reviews, and PRs",
+        "Cross-functional participation, collaborating with design, QA, backend, and product"
+      ]
+    }
+  ],
+  "skills": [
+    "Git",
+    "GitHub",
+    "GitLab",
+    "Cloudflare",
+    "Proxmox",
+    "Docker Compose",
+    "Supabase",
+    "SQL",
+    "Java",
+    "Kotlin",
+    "Jetpack Compose",
+    "Figma",
+    "Design Systems",
+    "Scrum",
+    "OpenCode",
+    "AI/LLMs",
+    "BitWarden"
+  ],
+  "projects": []
+}
