@@ -13,7 +13,7 @@ export const DEFAULT_LOCALE: Locale = "es";
  * Override it with NEXT_PUBLIC_SITE_URL in production.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://cv.diegofercri.dev";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://diegofercri.dev";
 
 const RESUME_BY_LOCALE = {
   es: esData,
