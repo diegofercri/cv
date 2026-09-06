@@ -48,37 +48,6 @@ No se usan tipos inventados como `add:` — ese caso concreto normalmente es
 `feat` (si añade algo que la app expone) o `chore` (si es un archivo de
 soporte/metadata que no cambia el comportamiento para quien usa la app).
 
-## Ejemplos reales de este repo
-
-```
-feat(i18n)!: add locale-based routing with es/en support
-
-Migrate the site to a [lang] dynamic route backed by locale-specific
-resume data (src/data/{es,en}.json) instead of the single static
-resume-data.ts. ...
-
-BREAKING CHANGE: the resume is no longer served at "/"; it now lives
-under locale-prefixed routes ("/es", "/en"), with "/" redirecting
-based on Accept-Language.
-```
-
-```
-chore(branding): rebrand site to diegofercri.dev and add PWA manifest
-
-- Update LICENSE copyright, README ... and the robots.txt/sitemap host
-  to point at this fork instead of the upstream template.
-- Add src/app/icon.svg and src/app/manifest.ts (with android-chrome
-  icons) to define web app metadata for installability.
-```
-
-```
-fix(seo): improve metadata, fix duplicate markup, drop unused PWA manifest
-
-- Use resume.summary instead of resume.about for the description,
-  og:description and twitter:description tags.
-- ...
-```
-
 ## Pasos para commitear
 
 ```bash
