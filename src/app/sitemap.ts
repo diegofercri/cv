@@ -1,14 +1,11 @@
 import type { MetadataRoute } from "next";
+import { LOCALES, SITE_URL } from "@/lib/i18n";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://cv.jarocki.me";
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-  ];
+  return LOCALES.map((locale) => ({
+    url: `${SITE_URL}/${locale}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 1,
+  }));
 }

@@ -1,31 +1,38 @@
-import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { GlobeIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import type React from "react";
 import { Avatar } from "@/components/avatar";
-import { GitHubIcon, LinkedInIcon } from "@/components/icons";
-import { XIcon } from "@/components/icons/x-icon";
+import {
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+} from "@/components/icons";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { Button } from "@/components/ui/button";
-import { RESUME_DATA } from "@/data/resume-data";
-import type { IconType } from "@/lib/types";
+import type { Dictionary, Locale } from "@/lib/i18n";
+import { resolveAvatarUrl } from "@/lib/i18n";
+import type { ResumeData } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 // Type-safe icon mapping
 const ICON_MAP: Record<
-  IconType,
+  string,
   React.ComponentType<React.SVGProps<SVGSVGElement>>
 > = {
   github: GitHubIcon,
   linkedin: LinkedInIcon,
-  x: XIcon,
+  instagram: InstagramIcon,
   globe: GlobeIcon,
   mail: MailIcon,
   phone: PhoneIcon,
 } as const;
 
 interface LocationLinkProps {
-  location: typeof RESUME_DATA.location;
-  locationLink: typeof RESUME_DATA.locationLink;
+  location: string;
+  locationLink: string;
+  dict: Dictionary;
 }
 
-function LocationLink({ location, locationLink }: LocationLinkProps) {
+function LocationLink({ location, locationLink, dict }: LocationLinkProps) {
   return (
     <p className="max-w-md items-center text-pretty font-mono text-xs text-foreground">
       <a
@@ -33,9 +40,9 @@ function LocationLink({ location, locationLink }: LocationLinkProps) {
         href={locationLink}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`Location: ${location}`}
+        aria-label={`${dict.location}: ${location}`}
       >
-        <GlobeIcon className="size-3" aria-hidden="true" />
+        <MapPinIcon className="size-3" aria-hidden="true" />
         {location}
       </a>
     </p>
@@ -44,12 +51,12 @@ function LocationLink({ location, locationLink }: LocationLinkProps) {
 
 interface SocialButtonProps {
   href: string;
-  iconType: IconType;
+  iconType: string;
   label: string;
 }
 
 function SocialButton({ href, iconType, label }: SocialButtonProps) {
-  const IconComponent = ICON_MAP[iconType];
+  const IconComponent = ICON_MAP[iconType] ?? GlobeIcon;
 
   return (
     <Button className="size-8" variant="outline" size="icon" asChild={true}>
@@ -65,23 +72,24 @@ function SocialButton({ href, iconType, label }: SocialButtonProps) {
   );
 }
 
-interface ContactButtonsProps {
-  contact: typeof RESUME_DATA.contact;
+interface ContactProps {
+  contact: ResumeData["contact"];
   personalWebsiteUrl?: string;
+  dict: Dictionary;
 }
 
-function ContactButtons({ contact, personalWebsiteUrl }: ContactButtonsProps) {
+function ContactButtons({ contact, personalWebsiteUrl, dict }: ContactProps) {
   return (
     <ul
       className="flex list-none gap-x-1 pt-1 font-mono text-sm text-foreground/80 print:hidden"
-      aria-label="Contact links"
+      aria-label={dict.contactLinks}
     >
       {personalWebsiteUrl && (
         <li>
           <SocialButton
             href={personalWebsiteUrl}
             iconType="globe"
-            label="Personal website"
+            label={dict.personalWebsite}
           />
         </li>
       )}
@@ -90,7 +98,7 @@ function ContactButtons({ contact, personalWebsiteUrl }: ContactButtonsProps) {
           <SocialButton
             href={`mailto:${contact.email}`}
             iconType="mail"
-            label="Email"
+            label={dict.email}
           />
         </li>
       )}
@@ -99,7 +107,7 @@ function ContactButtons({ contact, personalWebsiteUrl }: ContactButtonsProps) {
           <SocialButton
             href={`tel:${contact.tel}`}
             iconType="phone"
-            label="Phone"
+            label={dict.phone}
           />
         </li>
       )}
@@ -116,20 +124,15 @@ function ContactButtons({ contact, personalWebsiteUrl }: ContactButtonsProps) {
   );
 }
 
-interface PrintContactProps {
-  contact: typeof RESUME_DATA.contact;
-  personalWebsiteUrl?: string;
-}
-
-function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
+function PrintContact({
+  contact,
+  personalWebsiteUrl,
+}: Omit<ContactProps, "dict">) {
   return (
     <div className="hidden gap-x-2 font-mono text-sm text-foreground/80 print:flex print:text-[12px]">
       {personalWebsiteUrl && (
         <>
-          <a
-            className="underline hover:text-foreground/70"
-            href={personalWebsiteUrl}
-          >
+          <a className="hover:text-foreground/70" href={personalWebsiteUrl}>
             {new URL(personalWebsiteUrl).hostname}
           </a>
           <span aria-hidden="true">/</span>
@@ -138,17 +141,17 @@ function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
       {contact.email && (
         <>
           <a
-            className="underline hover:text-foreground/70"
+            className="hover:text-foreground/70"
             href={`mailto:${contact.email}`}
           >
             {contact.email}
           </a>
-          <span aria-hidden="true">/</span>
+          {contact.tel && <span aria-hidden="true">/</span>}
         </>
       )}
       {contact.tel && (
         <a
-          className="underline hover:text-foreground/70"
+          className="hover:text-foreground/70"
           href={`tel:${contact.tel}`}
         >
           {contact.tel}
@@ -158,42 +161,63 @@ function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
   );
 }
 
+interface HeaderProps {
+  resume: ResumeData;
+  dict: Dictionary;
+  locale: Locale;
+}
+
 /**
  * Header component displaying personal information and contact details
  */
-export function Header() {
+export function Header({ resume, dict, locale }: HeaderProps) {
   return (
-    <header className="flex items-center justify-between">
-      <div className="flex-1 space-y-1.5">
+    <header className="flex flex-col items-start gap-y-4 md:flex-row md:items-center md:justify-between md:gap-y-0 print:flex-row print:items-center print:justify-between print:gap-y-0">
+      <div className="min-w-0 flex-1 space-y-1.5">
         <h1 className="text-3xl font-bold tracking-tight" id="resume-name">
-          {RESUME_DATA.name}
+          {resume.name}
         </h1>
         <p className="max-w-md text-pretty font-mono text-sm text-foreground/80 print:text-[12px]">
-          {RESUME_DATA.about}
+          {resume.about}
         </p>
 
         <LocationLink
-          location={RESUME_DATA.location}
-          locationLink={RESUME_DATA.locationLink}
+          location={resume.location}
+          locationLink={resume.locationLink}
+          dict={dict}
         />
 
+        <p className="mb-2.5 max-w-md text-pretty font-mono text-sm italic text-foreground/60 print:mb-0 print:text-[12px]">
+          &ldquo;{resume.phrase}&rdquo;
+        </p>
+
         <ContactButtons
-          contact={RESUME_DATA.contact}
-          personalWebsiteUrl={RESUME_DATA.personalWebsiteUrl}
+          contact={resume.contact}
+          personalWebsiteUrl={resume.personalWebsiteUrl}
+          dict={dict}
         />
 
         <PrintContact
-          contact={RESUME_DATA.contact}
-          personalWebsiteUrl={RESUME_DATA.personalWebsiteUrl}
+          contact={resume.contact}
+          personalWebsiteUrl={resume.personalWebsiteUrl}
         />
       </div>
 
-      <Avatar
-        className="size-28 ring-1 ring-muted"
-        src={RESUME_DATA.avatarUrl}
-        alt={`${RESUME_DATA.name}'s profile picture`}
-        fallback={RESUME_DATA.initials}
-      />
+      <div
+        className={cn(
+          "order-first flex w-full items-start justify-between",
+          "md:order-none md:w-auto md:flex-col-reverse md:items-end md:gap-y-3",
+          "print:order-none print:w-auto print:flex-col-reverse print:items-end print:gap-y-0"
+        )}
+      >
+        <Avatar
+          className="size-28 ring-1 ring-muted"
+          src={resolveAvatarUrl(resume.avatarUrl)}
+          alt={resume.name}
+          fallback={resume.initials}
+        />
+        <LanguageSwitcher currentLocale={locale} dict={dict} />
+      </div>
     </header>
   );
 }

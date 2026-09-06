@@ -1,36 +1,38 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
-import type { RESUME_DATA } from "@/data/resume-data";
-
-type Education = (typeof RESUME_DATA)["education"][number];
+import type { Dictionary } from "@/lib/i18n";
+import type { EducationItem as EducationEntry } from "@/lib/types";
+import { escapeDateDetection } from "@/lib/utils";
 
 interface EducationPeriodProps {
-  start: Education["start"];
-  end: Education["end"];
+  start: EducationEntry["start"];
+  end: EducationEntry["end"];
+  dict: Dictionary;
 }
 
 /**
  * Displays the education period in a consistent format
  */
-function EducationPeriod({ start, end }: EducationPeriodProps) {
+function EducationPeriod({ start, end, dict }: EducationPeriodProps) {
   return (
     <div
       className="text-sm tabular-nums text-gray-500"
-      title={`Period: ${start} to ${end}`}
+      title={`${dict.period}: ${start} - ${end}`}
     >
-      {start} - {end}
+      {escapeDateDetection(`${start} - ${end}`)}
     </div>
   );
 }
 
 interface EducationItemProps {
-  education: Education;
+  education: EducationEntry;
+  dict: Dictionary;
 }
 
 /**
  * Individual education card component
  */
-function EducationItem({ education }: EducationItemProps) {
+function EducationItem({ education, dict }: EducationItemProps) {
   const { school, start, end, degree } = education;
   const schoolId = `education-${school.toLowerCase().replace(/\s+/g, "-")}`;
 
@@ -41,7 +43,7 @@ function EducationItem({ education }: EducationItemProps) {
           <h3 className="font-semibold leading-none" id={schoolId}>
             {school}
           </h3>
-          <EducationPeriod start={start} end={end} />
+          <EducationPeriod start={start} end={end} dict={dict} />
         </div>
       </CardHeader>
       <CardContent
@@ -55,18 +57,21 @@ function EducationItem({ education }: EducationItemProps) {
 }
 
 interface EducationListProps {
-  education: readonly Education[];
+  education: readonly EducationEntry[];
+  dict: Dictionary;
 }
 
 /**
  * Main education section component
  * Renders a list of education experiences
  */
-export function Education({ education }: EducationListProps) {
+export function Education({ education, dict }: EducationListProps) {
+  if (education.length === 0) return null;
+
   return (
     <Section>
       <h2 className="text-xl font-bold" id="education-section">
-        Education
+        {dict.education}
       </h2>
       <div
         className="space-y-4"
@@ -74,8 +79,8 @@ export function Education({ education }: EducationListProps) {
         aria-labelledby="education-section"
       >
         {education.map((item) => (
-          <article key={item.school}>
-            <EducationItem education={item} />
+          <article key={`${item.school}-${item.degree}`}>
+            <EducationItem education={item} dict={dict} />
           </article>
         ))}
       </div>

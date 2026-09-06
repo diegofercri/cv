@@ -100,4 +100,32 @@
     opacity: 1 !important;
     transform: none !important;
   }
+
+  /*
+   * Force browsers to print background colors and text colors exactly as
+   * rendered on screen. Without this, most browsers omit element
+   * background-color by default when printing (unless the user manually
+   * enables "background graphics" in the print dialog), which strips the
+   * badge backgrounds while keeping their text color — making skill and
+   * work-experience badges unreadable or mismatched depending on the
+   * device/browser used to print.
+   */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/*
+ * Browsers inject their own header/footer into the page margin when printing
+ * (document title, URL, date/time, page numbers). That text is drawn inside
+ * the page margin area, so zeroing it out leaves no room for the browser to
+ * render it, which suppresses it in Chrome, Edge and Firefox without relying
+ * on the user unchecking "Headers and footers" in the print dialog. `main`'s
+ * `print:p-11` padding already recreates a visual margin around the content.
+ */
+@page {
+  size: auto;
+  margin: 0;
 }
