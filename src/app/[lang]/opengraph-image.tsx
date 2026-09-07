@@ -3,13 +3,13 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 import {
   DEFAULT_LOCALE,
+  getDictionary,
   getResumeData,
   isLocale,
   LOCALES,
   resolveAvatarUrl,
 } from "@/lib/i18n";
 
-export const alt = "Resume";
 export const size = {
   width: 1200,
   height: 630,
@@ -19,6 +19,25 @@ export const contentType = "image/png";
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
+}
+
+/** Localizes the OG image's alt text per locale (e.g. "Currículum" vs "Resume"). */
+export async function generateImageMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
+
+  return [
+    {
+      id: "default",
+      alt: getDictionary(locale).resume,
+      contentType,
+      size,
+    },
+  ];
 }
 
 /** Image formats Satori (the ImageResponse renderer) can actually paint. */
@@ -62,6 +81,20 @@ async function isRenderableRemoteAvatar(src: string): Promise<boolean> {
   }
 }
 
+/**
+ * Satori (the ImageResponse renderer) can't consume next/font objects, and
+ * it can't parse variable fonts either (the app's variable Gabarito file
+ * crashes it), so these static Regular/Bold instances — pre-generated from
+ * that same variable font via fonttools varLib.instancer — are read
+ * straight off disk and registered as raw font data instead.
+ */
+const gabaritoRegular = readFileSync(
+  path.join(process.cwd(), "src/fonts/gabarito/static/Gabarito-Regular.ttf")
+);
+const gabaritoBold = readFileSync(
+  path.join(process.cwd(), "src/fonts/gabarito/static/Gabarito-Bold.ttf")
+);
+
 export default async function Image({
   params,
 }: {
@@ -88,7 +121,7 @@ export default async function Image({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: '"Inter"',
+        fontFamily: '"Gabarito"',
       }}
     >
       <div
@@ -167,6 +200,15 @@ export default async function Image({
     </div>,
     {
       ...size,
+      fonts: [
+        {
+          name: "Gabarito",
+          data: gabaritoRegular,
+          style: "normal",
+          weight: 400,
+        },
+        { name: "Gabarito", data: gabaritoBold, style: "normal", weight: 700 },
+      ],
     }
   );
 }

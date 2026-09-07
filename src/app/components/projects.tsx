@@ -38,7 +38,7 @@ function ProjectLink({ title, link }: ProjectLinkProps) {
         <span className="size-1 rounded-full bg-green-500" aria-hidden="true" />
       </a>
       <div
-        className="hidden font-mono text-xs underline print:visible"
+        className="hidden text-xs underline print:visible"
         aria-hidden="true"
       >
         {link.replace("https://", "").replace("www.", "").replace("/", "")}
@@ -62,10 +62,7 @@ function ProjectTags({ tags, label }: ProjectTagsProps) {
     <ul className="mt-2 flex list-none flex-wrap gap-1 p-0" aria-label={label}>
       {tags.map((tag) => (
         <li key={tag}>
-          <Badge
-            className="px-1 py-0 text-[10px] print:px-1 print:py-0.5 print:text-[8px] print:leading-tight"
-            variant="secondary"
-          >
+          <Badge className="px-1 py-0 text-[0.625rem]" variant="secondary">
             {tag}
           </Badge>
         </li>
@@ -99,7 +96,7 @@ function ProjectCard({
           <CardTitle className="text-base">
             <ProjectLink title={title} link={link} />
           </CardTitle>
-          <CardDescription className="text-pretty font-mono text-xs print:text-[10px]">
+          <CardDescription className="text-pretty text-xs">
             {description}
           </CardDescription>
         </div>
@@ -123,12 +120,12 @@ export function Projects({ projects, dict }: ProjectsProps) {
   if (projects.length === 0) return null;
 
   return (
-    <Section className="scroll-mb-16 print:space-y-4">
+    <Section className="scroll-mb-16">
       <h2 className="text-xl font-bold" id="side-projects">
         {dict.projects}
       </h2>
       <div
-        className="-mx-3 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 print:gap-2"
+        className="-mx-3 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 print:grid-cols-3"
         role="feed"
         aria-labelledby="side-projects"
       >

@@ -1,12 +1,11 @@
 import { Analytics } from "@vercel/analytics/react";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 
 import "../globals.css";
 import type React from "react";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { gabarito } from "@/fonts/gabarito";
 import {
   DEFAULT_LOCALE,
   getDictionary,
@@ -107,10 +106,7 @@ export default async function LocaleLayout({
   if (!isLocale(lang)) notFound();
 
   return (
-    <html
-      lang={getDictionary(lang).htmlLang}
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-    >
+    <html lang={getDictionary(lang).htmlLang} className={gabarito.variable}>
       <body>
         <ErrorBoundary>{children}</ErrorBoundary>
         <Analytics />

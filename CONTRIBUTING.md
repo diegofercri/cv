@@ -24,6 +24,9 @@ del commit.
 - Si el commit rompe compatibilidad, añade `!` tras el type/scope
   (`feat(i18n)!:`) **y** un footer `BREAKING CHANGE: <explicación>`.
 - El cuerpo debe explicar el *porqué*, no repetir el diff línea a línea.
+- Cada bullet o párrafo del cuerpo va en una sola línea, sin saltos de
+  línea manuales dentro de él (nada de wrap duro a 72/80 columnas): que
+  el visor (terminal, GitHub, `git log`) haga el wrap por ti.
 
 ## Tipos que usa release-please
 
@@ -60,6 +63,13 @@ el diff (no solo la parte más obvia): si un commit mezcla cosas de tipos
 distintos, mejor dividirlo en varios `git add -p` + `git commit` por
 separado, o usar el `type` que domine el conjunto y detallar el resto en el
 cuerpo.
+
+## Autoría
+
+No añadas trailers `Co-Authored-By:` para atribuir el commit a una IA
+(Claude Code u otra herramienta), aunque el mensaje lo haya redactado un
+asistente. La autoría del commit es de quien lo firma, sin coautoría
+añadida automáticamente.
 
 ## Firma de commits
 

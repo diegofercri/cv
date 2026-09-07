@@ -17,9 +17,7 @@ export function Summary({ summary, dict, className }: AboutProps) {
       <h2 className="text-xl font-bold" id="about-section">
         {dict.about}
       </h2>
-      <div className="text-pretty font-mono text-sm text-foreground/80 print:text-[12px]">
-        {summary}
-      </div>
+      <div className="text-pretty text-sm text-foreground/80">{summary}</div>
     </Section>
   );
 }

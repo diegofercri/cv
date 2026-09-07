@@ -1,11 +1,7 @@
 import { GlobeIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import type React from "react";
 import { Avatar } from "@/components/avatar";
-import {
-  GitHubIcon,
-  InstagramIcon,
-  LinkedInIcon,
-} from "@/components/icons";
+import { GitHubIcon, InstagramIcon, LinkedInIcon } from "@/components/icons";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Button } from "@/components/ui/button";
 import type { Dictionary, Locale } from "@/lib/i18n";
@@ -34,7 +30,7 @@ interface LocationLinkProps {
 
 function LocationLink({ location, locationLink, dict }: LocationLinkProps) {
   return (
-    <p className="max-w-md items-center text-pretty font-mono text-xs text-foreground">
+    <p className="max-w-md items-center text-pretty text-xs text-foreground">
       <a
         className="inline-flex gap-x-1.5 align-baseline leading-none hover:underline"
         href={locationLink}
@@ -81,7 +77,7 @@ interface ContactProps {
 function ContactButtons({ contact, personalWebsiteUrl, dict }: ContactProps) {
   return (
     <ul
-      className="flex list-none gap-x-1 pt-1 font-mono text-sm text-foreground/80 print:hidden"
+      className="flex list-none gap-x-1 pt-1 text-sm text-foreground/80 print:hidden"
       aria-label={dict.contactLinks}
     >
       {personalWebsiteUrl && (
@@ -129,7 +125,7 @@ function PrintContact({
   personalWebsiteUrl,
 }: Omit<ContactProps, "dict">) {
   return (
-    <div className="hidden gap-x-2 font-mono text-sm text-foreground/80 print:flex print:text-[12px]">
+    <div className="hidden gap-x-2 text-sm text-foreground/80 print:flex">
       {personalWebsiteUrl && (
         <>
           <a className="hover:text-foreground/70" href={personalWebsiteUrl}>
@@ -150,10 +146,7 @@ function PrintContact({
         </>
       )}
       {contact.tel && (
-        <a
-          className="hover:text-foreground/70"
-          href={`tel:${contact.tel}`}
-        >
+        <a className="hover:text-foreground/70" href={`tel:${contact.tel}`}>
           {contact.tel}
         </a>
       )}
@@ -172,12 +165,12 @@ interface HeaderProps {
  */
 export function Header({ resume, dict, locale }: HeaderProps) {
   return (
-    <header className="flex flex-col items-start gap-y-4 md:flex-row md:items-center md:justify-between md:gap-y-0 print:flex-row print:items-center print:justify-between print:gap-y-0">
+    <header className="flex flex-col items-start gap-y-4 md:flex-row md:items-start md:justify-between md:gap-y-0 print:flex-row print:items-start print:justify-between print:gap-y-0">
       <div className="min-w-0 flex-1 space-y-1.5">
         <h1 className="text-3xl font-bold tracking-tight" id="resume-name">
           {resume.name}
         </h1>
-        <p className="max-w-md text-pretty font-mono text-sm text-foreground/80 print:text-[12px]">
+        <p className="max-w-md text-pretty text-sm text-foreground/80">
           {resume.about}
         </p>
 
@@ -187,7 +180,7 @@ export function Header({ resume, dict, locale }: HeaderProps) {
           dict={dict}
         />
 
-        <p className="mb-2.5 max-w-md text-pretty font-mono text-sm italic text-foreground/60 print:mb-0 print:text-[12px]">
+        <p className="mb-2.5 max-w-md text-pretty text-sm italic text-foreground/60">
           &ldquo;{resume.phrase}&rdquo;
         </p>
 

@@ -27,10 +27,7 @@ function BadgeList({ className, badges, dict }: BadgeListProps) {
     >
       {badges.map((badge) => (
         <li key={badge}>
-          <Badge
-            variant="secondary"
-            className="align-middle text-xs print:px-1 print:py-0.5 print:text-[8px] print:leading-tight"
-          >
+          <Badge variant="secondary" className="align-middle text-xs">
             {badge}
           </Badge>
         </li>
@@ -99,39 +96,37 @@ function WorkExperienceItem({ work, dict }: WorkExperienceItemProps) {
     work;
 
   return (
-    <Card className="border-none py-1 print:py-0">
+    <Card className="border-none py-1">
       <CardHeader className="space-y-0">
         <div>
           <div className="flex items-center justify-between gap-x-2 text-base">
-            <h3 className="font-semibold leading-none print:text-sm">
+            <h3 className="font-semibold leading-none">
               <CompanyLink company={company} link={link} />
             </h3>
             <WorkPeriod start={start} end={end} dict={dict} />
           </div>
 
-          <BadgeList
-            className="mt-1 flex-wrap gap-1 print:mt-0.5"
-            badges={badges}
-            dict={dict}
-          />
-
-          <h4 className="mt-4 font-mono text-sm font-semibold leading-none print:mt-2 print:text-[12px]">
-            {title}
-          </h4>
+          <h4 className="mt-1 text-sm font-semibold leading-none">{title}</h4>
         </div>
       </CardHeader>
 
       <CardContent>
-        <div className="mt-3 text-xs text-foreground/80 print:mt-1.5 print:text-[10px] text-pretty">
+        <div className="mt-3 text-xs text-foreground/80 text-pretty">
           {description}
           {highlights && highlights.length > 0 && (
-            <ul className="mt-1.5 list-inside list-disc print:mt-1">
+            <ul className="mt-1.5 list-inside list-disc">
               {highlights.map((highlight) => (
                 <li key={highlight}>{highlight}</li>
               ))}
             </ul>
           )}
         </div>
+
+        <BadgeList
+          className="mt-2.5 flex-wrap gap-1"
+          badges={badges}
+          dict={dict}
+        />
       </CardContent>
     </Card>
   );
@@ -154,11 +149,7 @@ export function WorkExperience({ work, dict }: WorkExperienceProps) {
       <h2 className="text-xl font-bold" id="work-experience">
         {dict.workExperience}
       </h2>
-      <div
-        className="space-y-4 print:space-y-0"
-        role="feed"
-        aria-labelledby="work-experience"
-      >
+      <div className="space-y-2" role="feed" aria-labelledby="work-experience">
         {work.map((item) => (
           <article key={`${item.company}-${item.start}`}>
             <WorkExperienceItem work={item} dict={dict} />

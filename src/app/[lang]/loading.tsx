@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
-    <div className="container relative mx-auto scroll-my-12 overflow-auto p-4 md:p-16 print:p-11">
-      <div className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4">
+    <div className="container relative mx-auto scroll-my-12 overflow-auto p-4 md:p-16 print:p-8">
+      <div className="mx-auto w-full max-w-2xl space-y-8 bg-white">
         {/* Header skeleton */}
         <div className="flex items-center justify-between">
           <div className="flex-1 space-y-3">
@@ -13,7 +13,7 @@ export default function Loading() {
         </div>
 
         {/* Content sections skeleton */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           {[...Array(4)].map((_, i) => (
             <div
               // biome-ignore lint/suspicious/noArrayIndexKey: Static skeleton content doesn't reorder

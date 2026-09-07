@@ -34,7 +34,7 @@
       "school": "IES Azarquiel",
       "degree": "Desarrollo de Aplicaciones Multiplataforma",
       "start": "09 / 2023",
-      "end": "09 / 2025"
+      "end": "06 / 2025"
     },
     {
       "school": "IES Azarquiel",
@@ -62,6 +62,26 @@
         "Implementación de Unix sockets para comunicación entre distintas instancias de la app",
         "Participación en decisiones de arquitectura, revisiones de código y PRs",
         "Participación transversal, colaborando con diseño, QA, backend y producto"
+      ]
+    },
+    {
+      "company": "M2M Aplicaciones",
+      "link": "https://www.linkedin.com/company/m2m-aplicaciones/",
+      "badges": [
+        "Esquema Nacional de Seguridad (ENS)",
+        "C#",
+        "Linux",
+        "Proxmox"
+      ],
+      "title": "Desarrollador e implementador de soluciones de ciberseguridad",
+      "start": "03 / 2025",
+      "end": "09 / 2025",
+      "description": "Interpretación e implantación del Esquema Nacional de Seguridad (ENS), garantizando el cumplimiento normativo necesario para seguir prestando servicios a empresas y administraciones públicas.",
+      "highlights": [
+        "Análisis e interpretación de los requisitos del ENS para su implementación en la empresa",
+        "Despliegue y configuración de firewalls y segmentación de red para reforzar la seguridad perimetral",
+        "Diseño e implementación de políticas de copias de seguridad y continuidad de negocio",
+        "Hardening y administración de los sistemas y servidores Linux/Windows"
       ]
     }
   ],

@@ -20,7 +20,7 @@ export function LanguageSwitcher({
   return (
     <nav
       className={cn(
-        "flex list-none items-center gap-x-1 font-mono text-xs print:hidden",
+        "flex list-none items-center gap-x-1 text-xs print:hidden",
         className
       )}
       aria-label={dict.switchLanguage}
