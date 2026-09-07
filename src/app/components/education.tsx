@@ -49,7 +49,7 @@ function EducationItem({ education, dict, index }: EducationItemProps) {
         </div>
       </CardHeader>
       <CardContent
-        className="mt-2 text-foreground/80 print:text-[12px]"
+        className="mt-1 text-foreground/80 print:text-[12px]"
         aria-labelledby={schoolId}
       >
         {degree}

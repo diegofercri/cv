@@ -62,6 +62,20 @@ async function isRenderableRemoteAvatar(src: string): Promise<boolean> {
   }
 }
 
+/**
+ * Satori (the ImageResponse renderer) can't consume next/font objects, and
+ * it can't parse variable fonts either (the app's variable Gabarito file
+ * crashes it), so these static Regular/Bold instances — pre-generated from
+ * that same variable font via fonttools varLib.instancer — are read
+ * straight off disk and registered as raw font data instead.
+ */
+const gabaritoRegular = readFileSync(
+  path.join(process.cwd(), "src/fonts/gabarito/static/Gabarito-Regular.ttf")
+);
+const gabaritoBold = readFileSync(
+  path.join(process.cwd(), "src/fonts/gabarito/static/Gabarito-Bold.ttf")
+);
+
 export default async function Image({
   params,
 }: {
@@ -88,7 +102,7 @@ export default async function Image({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: '"Inter"',
+        fontFamily: '"Gabarito"',
       }}
     >
       <div
@@ -167,6 +181,15 @@ export default async function Image({
     </div>,
     {
       ...size,
+      fonts: [
+        {
+          name: "Gabarito",
+          data: gabaritoRegular,
+          style: "normal",
+          weight: 400,
+        },
+        { name: "Gabarito", data: gabaritoBold, style: "normal", weight: 700 },
+      ],
     }
   );
 }

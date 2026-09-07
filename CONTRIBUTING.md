@@ -24,6 +24,9 @@ del commit.
 - Si el commit rompe compatibilidad, añade `!` tras el type/scope
   (`feat(i18n)!:`) **y** un footer `BREAKING CHANGE: <explicación>`.
 - El cuerpo debe explicar el *porqué*, no repetir el diff línea a línea.
+- Cada bullet o párrafo del cuerpo va en una sola línea, sin saltos de
+  línea manuales dentro de él (nada de wrap duro a 72/80 columnas): que
+  el visor (terminal, GitHub, `git log`) haga el wrap por ti.
 
 ## Tipos que usa release-please
 

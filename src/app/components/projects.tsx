@@ -38,7 +38,7 @@ function ProjectLink({ title, link }: ProjectLinkProps) {
         <span className="size-1 rounded-full bg-green-500" aria-hidden="true" />
       </a>
       <div
-        className="hidden font-mono text-xs underline print:visible"
+        className="hidden text-xs underline print:visible"
         aria-hidden="true"
       >
         {link.replace("https://", "").replace("www.", "").replace("/", "")}
@@ -99,7 +99,7 @@ function ProjectCard({
           <CardTitle className="text-base">
             <ProjectLink title={title} link={link} />
           </CardTitle>
-          <CardDescription className="text-pretty font-mono text-xs print:text-[10px]">
+          <CardDescription className="text-pretty text-xs print:text-[10px]">
             {description}
           </CardDescription>
         </div>

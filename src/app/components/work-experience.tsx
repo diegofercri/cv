@@ -115,7 +115,7 @@ function WorkExperienceItem({ work, dict }: WorkExperienceItemProps) {
             dict={dict}
           />
 
-          <h4 className="mt-4 font-mono text-sm font-semibold leading-none print:mt-2 print:text-[12px]">
+          <h4 className="mt-4 text-sm font-semibold leading-none print:mt-2 print:text-[12px]">
             {title}
           </h4>
         </div>

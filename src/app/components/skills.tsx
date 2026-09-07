@@ -22,7 +22,11 @@ function SkillsList({ skills, dict, className }: SkillsListProps) {
     >
       {skills.map((skill) => (
         <li key={skill}>
-          <Badge className="print:text-[10px]" aria-label={skill}>
+          <Badge
+            variant="secondary"
+            className="print:text-[10px]"
+            aria-label={skill}
+          >
             {skill}
           </Badge>
         </li>
