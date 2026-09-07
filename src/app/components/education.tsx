@@ -49,7 +49,7 @@ function EducationItem({ education, dict, index }: EducationItemProps) {
         </div>
       </CardHeader>
       <CardContent
-        className="mt-1 text-foreground/80 print:text-[12px]"
+        className="mt-1 text-foreground/80"
         aria-labelledby={schoolId}
       >
         {degree}
@@ -76,7 +76,7 @@ export function Education({ education, dict }: EducationListProps) {
         {dict.education}
       </h2>
       <div
-        className="space-y-4"
+        className="space-y-2"
         role="feed"
         aria-labelledby="education-section"
       >

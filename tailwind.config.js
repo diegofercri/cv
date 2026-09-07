@@ -39,6 +39,37 @@ const fontSize = {
   "4xl": scaleUp(36, 40), // -> 46px/51px
 };
 
+/**
+ * Golden-ratio spacing scale.
+ *
+ * Same idea as the type scale above, applied to padding/margin/gap/inset
+ * instead of text: every default Tailwind spacing step is scaled up by the
+ * same SCALE factor and snapped to a whole pixel, so nothing that used to
+ * be blurry-safe (a 4px-grid value) starts landing on a sub-pixel value
+ * (e.g. 4px * sqrt(phi) = 5.088px) and rendering fuzzy edges.
+ *
+ * Only the steps this project actually uses are overridden (everything
+ * else falls back to Tailwind's untouched default); add more as needed.
+ */
+function scaleSpace(px) {
+  return `${Math.round(px * SCALE) / ROOT_PX}rem`;
+}
+
+const spacing = {
+  "0.5": scaleSpace(2), // -> 3px
+  "1": scaleSpace(4), // -> 5px
+  "1.5": scaleSpace(6), // -> 8px
+  "2": scaleSpace(8), // -> 10px
+  "2.5": scaleSpace(10), // -> 13px
+  "3": scaleSpace(12), // -> 15px
+  "4": scaleSpace(16), // -> 20px
+  "6": scaleSpace(24), // -> 31px
+  "8": scaleSpace(32), // -> 41px
+  "11": scaleSpace(44), // -> 56px
+  "12": scaleSpace(48), // -> 61px
+  "16": scaleSpace(64), // -> 81px
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -52,7 +83,7 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: scaleSpace(32), // -> 41px, matches spacing["8"]
       screens: {
         "2xl": "1400px",
       },
@@ -62,6 +93,7 @@ module.exports = {
         sans: ["var(--font-gabarito)", "system-ui", "sans-serif"],
       },
       fontSize,
+      spacing,
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

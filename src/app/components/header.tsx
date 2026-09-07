@@ -125,7 +125,7 @@ function PrintContact({
   personalWebsiteUrl,
 }: Omit<ContactProps, "dict">) {
   return (
-    <div className="hidden gap-x-2 text-sm text-foreground/80 print:flex print:text-[12px]">
+    <div className="hidden gap-x-2 text-sm text-foreground/80 print:flex">
       {personalWebsiteUrl && (
         <>
           <a className="hover:text-foreground/70" href={personalWebsiteUrl}>
@@ -170,7 +170,7 @@ export function Header({ resume, dict, locale }: HeaderProps) {
         <h1 className="text-3xl font-bold tracking-tight" id="resume-name">
           {resume.name}
         </h1>
-        <p className="max-w-md text-pretty text-sm text-foreground/80 print:text-[12px]">
+        <p className="max-w-md text-pretty text-sm text-foreground/80">
           {resume.about}
         </p>
 
@@ -180,7 +180,7 @@ export function Header({ resume, dict, locale }: HeaderProps) {
           dict={dict}
         />
 
-        <p className="mb-2.5 max-w-md text-pretty text-sm italic text-foreground/60 print:mb-0 print:text-[12px]">
+        <p className="mb-2.5 max-w-md text-pretty text-sm italic text-foreground/60">
           &ldquo;{resume.phrase}&rdquo;
         </p>
 

@@ -64,6 +64,13 @@ distintos, mejor dividirlo en varios `git add -p` + `git commit` por
 separado, o usar el `type` que domine el conjunto y detallar el resto en el
 cuerpo.
 
+## Autoría
+
+No añadas trailers `Co-Authored-By:` para atribuir el commit a una IA
+(Claude Code u otra herramienta), aunque el mensaje lo haya redactado un
+asistente. La autoría del commit es de quien lo firma, sin coautoría
+añadida automáticamente.
+
 ## Firma de commits
 
 Este repo tiene `commit.gpgsign = true` (firma SSH, `gpg.format = ssh`). Si

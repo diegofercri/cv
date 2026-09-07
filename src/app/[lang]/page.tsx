@@ -54,18 +54,18 @@ export default async function ResumePage({
         }}
       />
       <main
-        className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-11 md:p-16"
+        className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-8 md:p-16"
         id="main-content"
       >
         <section
-          className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4 dark:bg-background"
+          className="mx-auto w-full max-w-2xl space-y-8 bg-white dark:bg-background"
           aria-label={dict.resumeContent}
         >
           <div className="animate-fade-in" style={{ animationDelay: "0ms" }}>
             <Header resume={resume} dict={dict} locale={lang} />
           </div>
 
-          <div className="space-y-8 print:space-y-4">
+          <div className="space-y-6">
             <div className="animate-fade-in" style={{ animationDelay: "75ms" }}>
               <Summary summary={resume.summary} dict={dict} />
             </div>

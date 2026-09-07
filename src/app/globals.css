@@ -95,6 +95,20 @@
 }
 
 @media print {
+  /*
+   * Every font-size and spacing value in this project (both Tailwind's
+   * defaults and the golden-ratio scale in tailwind.config.js) is expressed
+   * in rem, so scaling the root font-size scales the entire type and
+   * spacing system down together, in proportion. That's what keeps print
+   * output visually identical to the screen version — same relative
+   * hierarchy, same spacing rhythm — just resized as a whole to fit one
+   * printed page, instead of each component picking its own unrelated
+   * print-only pixel value.
+   */
+  html {
+    font-size: 80%;
+  }
+
   .animate-fade-in {
     animation: none !important;
     opacity: 1 !important;
@@ -123,7 +137,7 @@
  * the page margin area, so zeroing it out leaves no room for the browser to
  * render it, which suppresses it in Chrome, Edge and Firefox without relying
  * on the user unchecking "Headers and footers" in the print dialog. `main`'s
- * `print:p-11` padding already recreates a visual margin around the content.
+ * `print:p-8` padding already recreates a visual margin around the content.
  */
 @page {
   size: auto;
