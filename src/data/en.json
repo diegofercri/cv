@@ -34,7 +34,7 @@
       "school": "IES Azarquiel",
       "degree": "Multiplatform App Development",
       "start": "09 / 2023",
-      "end": "09 / 2025"
+      "end": "06 / 2025"
     },
     {
       "school": "IES Azarquiel",
@@ -62,6 +62,26 @@
         "Implementation of Unix sockets for communication between different instances of the app",
         "Participation in architecture decisions, code reviews, and PRs",
         "Cross-functional participation, collaborating with design, QA, backend, and product"
+      ]
+    },
+    {
+      "company": "M2M Aplicaciones",
+      "link": "https://www.linkedin.com/company/m2m-aplicaciones/",
+      "badges": [
+        "National Security Framework (ENS)",
+        "C#",
+        "Linux",
+        "Proxmox"
+      ],
+      "title": "Cybersecurity Solutions Developer and Implementer",
+      "start": "03 / 2025",
+      "end": "09 / 2025",
+      "description": "Responsible for interpreting and implementing the National Security Framework (ENS) within M2M Aplicaciones, ensuring the regulatory compliance needed for the company to continue providing services to businesses and public administrations.",
+      "highlights": [
+        "Analysis and interpretation of ENS requirements for their implementation within the company",
+        "Deployment and configuration of firewalls and network segmentation to strengthen perimeter security",
+        "Design and implementation of backup and business continuity policies",
+        "Hardening and administration of Linux/Windows systems and servers"
       ]
     }
   ],
