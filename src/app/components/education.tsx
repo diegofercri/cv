@@ -76,7 +76,7 @@ export function Education({ education, dict }: EducationListProps) {
         {dict.education}
       </h2>
       <div
-        className="space-y-2"
+        className="space-y-3"
         role="feed"
         aria-labelledby="education-section"
       >

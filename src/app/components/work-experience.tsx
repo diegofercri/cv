@@ -149,7 +149,7 @@ export function WorkExperience({ work, dict }: WorkExperienceProps) {
       <h2 className="text-xl font-bold" id="work-experience">
         {dict.workExperience}
       </h2>
-      <div className="space-y-2" role="feed" aria-labelledby="work-experience">
+      <div className="space-y-3" role="feed" aria-labelledby="work-experience">
         {work.map((item) => (
           <article key={`${item.company}-${item.start}`}>
             <WorkExperienceItem work={item} dict={dict} />
