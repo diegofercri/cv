@@ -165,7 +165,7 @@ interface HeaderProps {
  */
 export function Header({ resume, dict, locale }: HeaderProps) {
   return (
-    <header className="flex flex-col items-start gap-y-4 md:flex-row md:items-center md:justify-between md:gap-y-0 print:flex-row print:items-center print:justify-between print:gap-y-0">
+    <header className="flex flex-col items-start gap-y-4 md:flex-row md:items-start md:justify-between md:gap-y-0 print:flex-row print:items-start print:justify-between print:gap-y-0">
       <div className="min-w-0 flex-1 space-y-1.5">
         <h1 className="text-3xl font-bold tracking-tight" id="resume-name">
           {resume.name}

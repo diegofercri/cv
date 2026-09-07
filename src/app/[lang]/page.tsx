@@ -54,11 +54,11 @@ export default async function ResumePage({
         }}
       />
       <main
-        className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-8 md:p-16"
+        className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:max-w-none print:p-12 md:p-16"
         id="main-content"
       >
         <section
-          className="mx-auto w-full max-w-2xl space-y-8 bg-white dark:bg-background"
+          className="mx-auto w-full max-w-2xl space-y-8 bg-white print:max-w-none dark:bg-background"
           aria-label={dict.resumeContent}
         >
           <div className="animate-fade-in" style={{ animationDelay: "0ms" }}>

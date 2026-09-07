@@ -137,7 +137,7 @@
  * the page margin area, so zeroing it out leaves no room for the browser to
  * render it, which suppresses it in Chrome, Edge and Firefox without relying
  * on the user unchecking "Headers and footers" in the print dialog. `main`'s
- * `print:p-8` padding already recreates a visual margin around the content.
+ * `print:p-12` padding already recreates a visual margin around the content.
  */
 @page {
   size: auto;
