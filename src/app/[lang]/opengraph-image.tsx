@@ -3,13 +3,13 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 import {
   DEFAULT_LOCALE,
+  getDictionary,
   getResumeData,
   isLocale,
   LOCALES,
   resolveAvatarUrl,
 } from "@/lib/i18n";
 
-export const alt = "Resume";
 export const size = {
   width: 1200,
   height: 630,
@@ -19,6 +19,25 @@ export const contentType = "image/png";
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
+}
+
+/** Localizes the OG image's alt text per locale (e.g. "Currículum" vs "Resume"). */
+export async function generateImageMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
+
+  return [
+    {
+      id: "default",
+      alt: getDictionary(locale).resume,
+      contentType,
+      size,
+    },
+  ];
 }
 
 /** Image formats Satori (the ImageResponse renderer) can actually paint. */
