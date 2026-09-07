@@ -4,13 +4,15 @@ services:
       context: .
       args:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://cv.diegofercri.dev}
-    ports:
-      - '${APP_PORT:-3000}:3000'
     environment:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: ['CMD-SHELL', 'curl -f http://localhost:3000 || exit 1']
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('http').get('http://localhost:3000', (res) => process.exit(res.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))"
       interval: 30s
       timeout: 10s
       retries: 3
