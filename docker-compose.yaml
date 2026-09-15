@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: diegofercri-cv
     build:
       context: .
       args:
